@@ -1,0 +1,33 @@
+
+.article-detail-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  .article-content {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+
+    h1 {
+      color: #333;
+      font-size: 2rem;
+    }
+
+    p {
+      color: #555;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+  }
+
+  .comments-section {
+    h2 {
+      color: #444;
+      margin-bottom: 15px;
+    }
+  }
+}

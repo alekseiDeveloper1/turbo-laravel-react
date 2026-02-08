@@ -12,7 +12,9 @@
   "dependencies": {
     "@repo/ui": "workspace:*",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.13.0",
+    "sass": "^1.97.3"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
