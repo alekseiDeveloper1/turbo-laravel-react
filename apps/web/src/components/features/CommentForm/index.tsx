@@ -24,7 +24,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ articleId, onCommentCreated }
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const newComment = await createComment({ article_id: articleId, ...formData });
+      const newComment = await createComment({ articleId: articleId, ...formData });
       onCommentCreated(newComment);
       setFormData({ author_name: '', content: '' });
     } catch (err) {

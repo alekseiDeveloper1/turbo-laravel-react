@@ -1,5 +1,5 @@
 
-const API_BASE_URL = 'http://127.0.0.1:8080/';
+const API_BASE_URL = 'http://127.0.0.1:8080/api';
 
 const request = async (url: string, options: RequestInit = {}) => {
   try {
@@ -15,7 +15,7 @@ const request = async (url: string, options: RequestInit = {}) => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    return await response.json();
+    return (await response.json());
   } catch (error) {
     console.error('API request error:', error);
     throw error;
@@ -24,16 +24,16 @@ const request = async (url: string, options: RequestInit = {}) => {
 
 // --- Articles API ---
 
-export const getArticles = () => {
-  return request(`${API_BASE_URL}/posts`);
+export const getArticles = async () => {
+  return (await request(`${API_BASE_URL}/articles`)).data;
 };
 
-export const getArticle = (id: number) => {
-  return request(`${API_BASE_URL}/posts/${id}`);
+export const getArticle = async (id: number) => {
+  return (await request(`${API_BASE_URL}/articles/${id}`)).data;
 };
 
 export const createArticle = (data: { title: string; content: string; }) => {
-  return request(`${API_BASE_URL}/posts`, {
+  return request(`${API_BASE_URL}/articles`, {
     method: 'POST',
     body: JSON.stringify(data),
   });
@@ -41,12 +41,8 @@ export const createArticle = (data: { title: string; content: string; }) => {
 
 // --- Comments API ---
 
-export const getComments = (articleId: number) => {
-  return request(`${API_BASE_URL}/comments?postId=${articleId}`);
-};
-
-export const createComment = (data: { author_name: string; content: string }) => {
-  return request(`${API_BASE_URL}/comments`, {
+export const createComment = async ( data: {articleId: number, author_name: string; content: string }) => {
+  return await request(`${API_BASE_URL}/articles/${data.articleId}/comments`, {
     method: 'POST',
     body: JSON.stringify(data),
   });

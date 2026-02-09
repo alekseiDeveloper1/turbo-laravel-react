@@ -20,8 +20,8 @@ const ArticleCreate: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const newArticle = await createArticle(formData);
-      navigate(`/articles/${newArticle.id}`);
+      await createArticle(formData);
+      navigate(`/articles`);
     } catch (err) {
       console.error('Failed to create article');
     }

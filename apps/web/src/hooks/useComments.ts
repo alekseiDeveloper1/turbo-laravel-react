@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useCallback } from 'react';
-import { getComments, createComment } from '../services/api';
+import {createComment, getArticle} from '../services/api';
 import { Comment } from '../types';
 
 export const useComments = (articleId: number) => {
@@ -11,7 +11,7 @@ export const useComments = (articleId: number) => {
   const fetchComments = useCallback(async () => {
     try {
       setLoading(true);
-      const data = await getComments(articleId);
+      const data = (await getArticle(articleId)).comments;
       setComments(data);
     } catch (err) {
       setError(err as Error);
@@ -25,6 +25,10 @@ export const useComments = (articleId: number) => {
   }, [fetchComments]);
 
   const addComment = (comment: Comment) => {
+    if (!comment) {
+      console.error("Бэкенд прислал пустой ответ!");
+      return;
+    }
     setComments(prevComments => [comment, ...prevComments]);
   };
 
@@ -35,11 +39,10 @@ export const useCreateComment = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const createCommentRequest = async (data: { article_id: number; author_name: string; content: string }) => {
+  const createCommentRequest = async (data: { articleId: number; author_name: string; content: string }) => {
     try {
       setLoading(true);
-      const newComment = await createComment(data);
-      return newComment;
+      return await createComment(data);
     } catch (err) {
       setError(err as Error);
       throw err;
